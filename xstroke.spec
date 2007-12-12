@@ -12,7 +12,7 @@ Group: 		Accessibility
 Source: 	%{name}-%{version}.tar.bz2
 
 Buildroot: 	%_tmppath/%name-%version-buildroot
-BuildRequires:	XFree86-devel ImageMagick
+BuildRequires:	X11-devel ImageMagick
 
 %description
 XStroke is a full-screen gesture recognition program for the X Window
