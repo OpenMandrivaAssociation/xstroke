@@ -34,18 +34,16 @@ rm -rf $RPM_BUILD_ROOT
 %makeinstall
 
 #menu
-(cd $RPM_BUILD_ROOT
-mkdir -p ./%{_menudir}
-cat > ./%{_menudir}/%{name} <<EOF
-?package(%{name}):\
-command="%{_bindir}/%name"\
-title="XStroke"\
-longtitle="Fullscreen gesture recognition"\
-needs="x11"\
-icon="%name.png"\
-section="More Applications/Accessibility"
+mkdir -p $RPM_BUILD_ROOT%{_datadir}/applications/
+cat << EOF > %buildroot%{_datadir}/applications/mandriva-%name.desktop
+[Desktop Entry]
+Type=Application
+Exec=%{_bindir}/%name
+Name=XStroke
+Comment=Fullscreen gesture recognition
+Icon=%name.png
+Categories=Utility;Accessibility;
 EOF
-)
 
 #icons
 mkdir -p $RPM_BUILD_ROOT/%_liconsdir
@@ -69,7 +67,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc AUTHORS ChangeLog NEWS README TODO
 %_bindir/%name
 %config(noreplace) %_sysconfdir/%name
-%_menudir/%name
+%{_datadir}/applications/mandriva-%name.desktop
 %_iconsdir/%name.png
 %_liconsdir/%name.png
 %_miconsdir/%name.png
