@@ -11,7 +11,6 @@ License: 	GPL
 Group: 		Accessibility
 Source: 	%{name}-%{version}.tar.bz2
 
-Buildroot: 	%_tmppath/%name-%version-buildroot
 BuildRequires:	X11-devel ImageMagick
 
 %description
