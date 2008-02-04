@@ -41,7 +41,7 @@ Type=Application
 Exec=%{_bindir}/%name
 Name=XStroke
 Comment=Fullscreen gesture recognition
-Icon=%name.png
+Icon=%name
 Categories=Utility;Accessibility;
 EOF
 
