@@ -53,11 +53,15 @@ convert -size 32x32 xstroke_inactive.xpm $RPM_BUILD_ROOT/%_iconsdir/%name.png
 mkdir -p $RPM_BUILD_ROOT/%_miconsdir
 convert -size 16x16 xstroke_inactive.xpm $RPM_BUILD_ROOT/%_miconsdir/%name.png
 
+%if %mdkversion < 200900
 %post
 %update_menus
+%endif
 
+%if %mdkversion < 200900
 %postun
 %update_menus
+%endif
 
 %clean
 rm -rf $RPM_BUILD_ROOT
