@@ -1,13 +1,13 @@
 %define name 	xstroke
 %define version 0.6.cvs20040921
-%define release %mkrel 4
+%define release %mkrel 5
 
 Summary: 	Fullscreen gesture and alphabet recognition
 Name: 		%name
 Version: 	%version
 Release: 	%release
-Url: 		http://www.xstroke.org/
-License: 	GPL
+Url: 		http://cworth.org/~cworth/papers/xstroke/	
+License: 	GPLv2+
 Group: 		Accessibility
 Source: 	%{name}-%{version}.tar.bz2
 
