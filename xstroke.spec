@@ -1,6 +1,6 @@
 %define name 	xstroke
 %define version 0.6.cvs20040921
-%define release %mkrel 5
+%define release %mkrel 6
 
 Summary: 	Fullscreen gesture and alphabet recognition
 Name: 		%name
@@ -10,9 +10,13 @@ Url: 		http://cworth.org/~cworth/papers/xstroke/
 License: 	GPLv2+
 Group: 		Accessibility
 Source: 	%{name}-%{version}.tar.bz2
-
 Buildroot: 	%_tmppath/%name-%version-buildroot
-BuildRequires:	X11-devel imagemagick
+BuildRequires:	libx11-devel
+BuildRequires:	libxext-devel
+BuildRequires:	libxft-devel
+BuildRequires:	libxpm-devel
+BuildRequires:	libxtst-devel
+BuildRequires:	imagemagick
 
 %description
 XStroke is a full-screen gesture recognition program for the X Window
@@ -31,7 +35,7 @@ system with X.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-%makeinstall
+%makeinstall_std
 
 #menu
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/applications/
