@@ -1,6 +1,6 @@
 %define name 	xstroke
 %define version 0.6.cvs20040921
-%define release %mkrel 6
+%define release 9
 
 Summary: 	Fullscreen gesture and alphabet recognition
 Name: 		%name
@@ -10,12 +10,12 @@ Url: 		http://cworth.org/~cworth/papers/xstroke/
 License: 	GPLv2+
 Group: 		Accessibility
 Source: 	%{name}-%{version}.tar.bz2
-Buildroot: 	%_tmppath/%name-%version-buildroot
-BuildRequires:	libx11-devel
-BuildRequires:	libxext-devel
-BuildRequires:	libxft-devel
-BuildRequires:	libxpm-devel
-BuildRequires:	libxtst-devel
+BuildRequires:	pkgconfig(x11)
+BuildRequires:	pkgconfig(xext)
+BuildRequires:	pkgconfig(xft)
+BuildRequires:	xpm-devel
+BuildRequires:	pkgconfig(xtst)
+BuildRequires:	pkgconfig(xi)
 BuildRequires:	imagemagick
 
 %description
@@ -30,16 +30,16 @@ system with X.
 %setup -q -n %name-0.6
 
 %build
+export LDFLAGS="-lXrender -lX11 -ldl -lXext -lXtst -lXi"
 %configure2_5x
 %make
 
 %install
-rm -rf $RPM_BUILD_ROOT
 %makeinstall_std
 
 #menu
-mkdir -p $RPM_BUILD_ROOT%{_datadir}/applications/
-cat << EOF > %buildroot%{_datadir}/applications/mandriva-%name.desktop
+mkdir -p %{buildroot}%{_datadir}/applications/
+cat << EOF > %{buildroot}%{_datadir}/applications/mandriva-%name.desktop
 [Desktop Entry]
 Type=Application
 Exec=%{_bindir}/%name
@@ -50,25 +50,12 @@ Categories=Utility;Accessibility;
 EOF
 
 #icons
-mkdir -p $RPM_BUILD_ROOT/%_liconsdir
-convert -size 48x48 xstroke_inactive.xpm $RPM_BUILD_ROOT/%_liconsdir/%name.png
-mkdir -p $RPM_BUILD_ROOT/%_iconsdir
-convert -size 32x32 xstroke_inactive.xpm $RPM_BUILD_ROOT/%_iconsdir/%name.png
-mkdir -p $RPM_BUILD_ROOT/%_miconsdir
-convert -size 16x16 xstroke_inactive.xpm $RPM_BUILD_ROOT/%_miconsdir/%name.png
-
-%if %mdkversion < 200900
-%post
-%update_menus
-%endif
-
-%if %mdkversion < 200900
-%postun
-%update_menus
-%endif
-
-%clean
-rm -rf $RPM_BUILD_ROOT
+mkdir -p %{buildroot}/%_liconsdir
+convert -size 48x48 xstroke_inactive.xpm %{buildroot}/%_liconsdir/%name.png
+mkdir -p %{buildroot}/%_iconsdir
+convert -size 32x32 xstroke_inactive.xpm %{buildroot}/%_iconsdir/%name.png
+mkdir -p %{buildroot}/%_miconsdir
+convert -size 16x16 xstroke_inactive.xpm %{buildroot}/%_miconsdir/%name.png
 
 %files
 %defattr(-,root,root)
@@ -79,4 +66,48 @@ rm -rf $RPM_BUILD_ROOT
 %_iconsdir/%name.png
 %_liconsdir/%name.png
 %_miconsdir/%name.png
+
+
+
+%changelog
+* Wed Feb 02 2011 Funda Wang <fwang@mandriva.org> 0.6.cvs20040921-6mdv2011.0
++ Revision: 634970
+- simplify BR
+
+* Sat May 16 2009 Samuel Verschelde <stormi@mandriva.org> 0.6.cvs20040921-5mdv2010.0
++ Revision: 376497
+- fix URL
+- fix license
+
+  + Oden Eriksson <oeriksson@mandriva.com>
+    - lowercase ImageMagick
+
+* Mon Aug 04 2008 Thierry Vignaud <tv@mandriva.org> 0.6.cvs20040921-4mdv2009.0
++ Revision: 262733
+- rebuild
+
+* Thu Jul 31 2008 Thierry Vignaud <tv@mandriva.org> 0.6.cvs20040921-3mdv2009.0
++ Revision: 257781
+- rebuild
+- fix 'error: for key "Icon" in group "Desktop Entry" is an icon name with an
+  extension, but there should be no extension as described in the Icon Theme
+  Specification if the value is not an absolute path'
+- kill re-definition of %%buildroot on Pixel's request
+
+  + Pixel <pixel@mandriva.com>
+    - rpm filetriggers deprecates update_menus/update_scrollkeeper/update_mime_database/update_icon_cache/update_desktop_database/post_install_gconf_schemas
+
+  + Olivier Blin <oblin@mandriva.com>
+    - restore BuildRoot
+
+* Fri Dec 14 2007 Thierry Vignaud <tv@mandriva.org> 0.6.cvs20040921-1mdv2008.1
++ Revision: 120014
+- auto convert menu to XDG
+- buildrequires X11-devel instead of XFree86-devel
+- use %%mkrel
+- import xstroke
+
+
+* Tue Sep 21 2004 Austin Acton <austin@mandrake.org> 0.6.cvs20040921-1mdk
+- initial build
 
