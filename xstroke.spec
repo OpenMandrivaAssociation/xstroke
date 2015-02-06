@@ -1,6 +1,6 @@
 %define name 	xstroke
 %define version 0.6.cvs20040921
-%define release 9
+%define release 10
 
 Summary: 	Fullscreen gesture and alphabet recognition
 Name: 		%name
