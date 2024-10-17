@@ -6,7 +6,7 @@ Summary: 	Fullscreen gesture and alphabet recognition
 Name: 		%name
 Version: 	%version
 Release: 	%release
-Url: 		http://cworth.org/~cworth/papers/xstroke/	
+Url: 		https://cworth.org/~cworth/papers/xstroke/	
 License: 	GPLv2+
 Group: 		Accessibility
 Source: 	%{name}-%{version}.tar.bz2
