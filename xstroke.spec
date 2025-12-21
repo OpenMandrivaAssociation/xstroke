@@ -10,6 +10,11 @@ Url: 		https://cworth.org/~cworth/papers/xstroke/
 License: 	GPLv2+
 Group: 		Accessibility
 Source: 	%{name}-%{version}.tar.bz2
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires:	pkgconfig(x11)
 BuildRequires:	pkgconfig(xext)
 BuildRequires:	pkgconfig(xft)
